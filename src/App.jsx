@@ -1,122 +1,56 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import Header from './components/Header';
+import RingkasanData from './components/RingkasanData';
+import FormTambahMenu from './components/FormTambahMenu';
+import DaftarMenu from './components/DaftarMenu';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [menus, setMenus] = useState([]);
+  const [hasilAcak, setHasilAcak] = useState(null);
+
+  const tambahMenu = (menuBaru) => {
+    setMenus([...menus, menuBaru]);
+  };
+
+  const acakMenu = () => {
+    if (menus.length === 0) return;
+    const randomIndex = Math.floor(Math.random() * menus.length);
+    setHasilAcak(menus[randomIndex]);
+  };
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
+    <div style={{ maxWidth: '600px', margin: '40px auto', fontFamily: 'sans-serif', padding: '0 20px' }}>
+      <Header />
+      <RingkasanData total={menus.length} />
+      <FormTambahMenu onTambah={tambahMenu} />
+
+      <div style={{ margin: '20px 0', padding: '15px', backgroundColor: '#fff3cd', borderRadius: '8px', textAlign: 'center' }}>
+        <button 
+          onClick={acakMenu} 
+          disabled={menus.length === 0} 
+          style={{ 
+            padding: '10px 20px', 
+            backgroundColor: '#ffc107', 
+            color: 'black', 
+            border: '1px solid #d39e00', 
+            borderRadius: '5px', 
+            fontWeight: 'bold', 
+            cursor: menus.length === 0 ? 'not-allowed' : 'pointer' 
+          }}
         >
-          Count is {count}
+          Acak Makan Apa Hari Ini!
         </button>
-      </section>
+        
+        {hasilAcak && (
+          <h2 style={{ marginTop: '15px', color: '#856404' }}>
+            Kamu harus makan: {hasilAcak.nama}!
+          </h2>
+        )}
+      </div>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+      <DaftarMenu menus={menus} />
+    </div>
+  );
 }
 
-export default App
+export default App;
