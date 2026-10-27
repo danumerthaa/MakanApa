@@ -1,9 +1,7 @@
-function RingkasanData({ total }) {
+export default function RingkasanData({ total }) {
   return (
-    <div style={{ backgroundColor: '#eef2ff', padding: '10px', borderRadius: '8px', marginBottom: '20px' }}>
-      <strong>Total Menu Tersimpan: {total} porsi</strong>
+    <div className="bg-green-50 text-green-800 p-4 rounded-md font-bold mb-4 border border-green-200">
+      Total Menu Tersimpan: {total} porsi
     </div>
   );
 }
-
-export default RingkasanData

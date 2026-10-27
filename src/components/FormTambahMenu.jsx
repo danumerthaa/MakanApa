@@ -1,41 +1,37 @@
 import { useState } from 'react';
 
-function FormTambahMenu({ onTambah }) {
+export default function FormTambahMenu({ onTambah }) {
   const [namaMenu, setNamaMenu] = useState('');
   const [kategori, setKategori] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!namaMenu || !kategori) return; 
-    
+    if (!namaMenu || !kategori) return;
     onTambah({ id: Date.now(), nama: namaMenu, kategori: kategori });
-    
     setNamaMenu('');
     setKategori('');
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ marginBottom: '20px', padding: '15px', border: '1px solid #ccc', borderRadius: '8px' }}>
-      <h3 style={{ marginTop: 0 }}>Tambah Menu Baru</h3>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <h3 className="text-xl font-bold text-green-700 border-b pb-2">Tambah Menu Baru</h3>
       <input
         type="text"
-        placeholder="Nama Menu"
+        placeholder="Nama Makanan"
         value={namaMenu}
         onChange={(e) => setNamaMenu(e.target.value)}
-        style={{ marginRight: '10px', padding: '5px' }}
+        className="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
       />
       <input
         type="text"
-        placeholder="Kategori (Misal: Makanan)"
+        placeholder="Kategori"
         value={kategori}
         onChange={(e) => setKategori(e.target.value)}
-        style={{ marginRight: '10px', padding: '5px' }}
+        className="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
       />
-      <button type="submit" style={{ padding: '6px 15px', backgroundColor: '#007bff', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
-        Tambah
+      <button type="submit" className="bg-green-700 hover:bg-green-800 text-white font-bold py-3 rounded-md transition">
+        Simpan Menu
       </button>
     </form>
   );
 }
-
-export default FormTambahMenu

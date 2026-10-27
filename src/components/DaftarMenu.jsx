@@ -1,17 +1,19 @@
 import KartuMenu from './KartuMenu';
+import RingkasanData from './RingkasanData';
 
-function DaftarMenu({ menus }) {
+export default function DaftarMenu({ menus }) {
   if (menus.length === 0) {
-    return <p style={{ color: 'red', fontStyle: 'italic' }}>Belum ada data Menu</p>;
+    return <p className="text-center text-red-500 italic py-8">Belum ada data Menu. Silakan tambah menu pada halaman "Tambah Menu".</p>;
   }
 
   return (
     <div>
-      {menus.map((menu) => (
-        <KartuMenu key={menu.id} nama={menu.nama} kategori={menu.kategori} />
-      ))}
+      <RingkasanData total={menus.length} />
+      <div className="flex flex-col gap-2">
+        {menus.map((menu) => (
+          <KartuMenu key={menu.id} nama={menu.nama} kategori={menu.kategori} />
+        ))}
+      </div>
     </div>
   );
 }
-
-export default DaftarMenu

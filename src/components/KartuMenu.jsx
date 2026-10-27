@@ -1,10 +1,8 @@
-function KartuMenu({ nama, kategori }) {
+export default function KartuMenu({ nama, kategori }) {
   return (
-    <div style={{ border: '1px solid #ddd', padding: '15px', borderRadius: '8px', marginBottom: '10px' }}>
-      <h3 style={{ margin: '0 0 5px 0' }}>{nama}</h3>
-      <p style={{ margin: 0, color: '#555' }}>Kategori: {kategori}</p>
+    <div className="p-4 border border-gray-200 rounded-md flex justify-between items-center hover:shadow-sm mb-3">
+      <span className="font-bold text-gray-800">{nama}</span>
+      <span className="text-sm bg-green-100 text-green-800 px-3 py-1 rounded-full">{kategori}</span>
     </div>
   );
 }
-
-export default KartuMenu
