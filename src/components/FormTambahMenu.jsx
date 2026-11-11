@@ -4,12 +4,30 @@ export default function FormTambahMenu({ onTambah }) {
   const [namaMenu, setNamaMenu] = useState('');
   const [kategori, setKategori] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!namaMenu || !kategori) return;
-    onTambah({ id: Date.now(), nama: namaMenu, kategori: kategori });
-    setNamaMenu('');
-    setKategori('');
+
+    try {
+      const response = await fetch('http://localhost:3000/menu', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          nama: namaMenu, 
+          kategori: kategori, 
+          harga: 0 
+        }),
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        onTambah(data);
+        setNamaMenu('');
+        setKategori('');
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
